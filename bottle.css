@@ -1,0 +1,31 @@
+.bottles {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.bottle {
+    width: 50px;
+    height: 110px;
+    position: relative;
+}
+
+.bottle {
+    background-color: blanchedalmond;
+    border: 1px solid cadetblue;
+}
+
+.colors-container {
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.color {
+    width: 100%;
+}
