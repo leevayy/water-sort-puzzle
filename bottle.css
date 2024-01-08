@@ -15,6 +15,10 @@
     border: 1px solid cadetblue;
 }
 
+.bottle.chosen {
+    border: 1px solid brown;
+}
+
 .colors-container {
     height: 100px;
     width: 100%;
