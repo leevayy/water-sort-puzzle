@@ -21,7 +21,24 @@ export class Bottle {
             throw new Error(NOT_ENOUGH_SPACE);
         }
 
-        this.fillings.unshift( bottle.pourOut() );
+        const pouredOut = bottle.pourOut();
+        if (this.fillings[0] && pouredOut.name === this.fillings[0].name) {
+            this.fillings[0].size += pouredOut.size;
+        } else {
+            this.fillings.unshift(pouredOut);
+        }
+    }
+
+    isFilled() {
+        if ((new Set(this.fillings.map(color => color.name))).size !== 1) {
+            return false;
+        }
+            
+        let fillingCount = 0;
+        for (const color of this.fillings) {
+            fillingCount += color.size;
+        }
+        return fillingCount >= 95;
     }
 
     pourOut() {
@@ -38,7 +55,7 @@ export class Bottle {
         return this.fillings.at(0);
     }
 
-    getDOM(onClickHandler, indexInBottles) {
+    getDOM(handleOnClick, indexInBottles) {
         this.dom = document.createElement("div");
         this.dom.className = "bottle";
         
@@ -49,11 +66,24 @@ export class Bottle {
         this.fillings.forEach( (filling, i) => {
             const color = document.createElement("div");
             color.className = `color ${filling.name}`;
-            color.style = `height: ${filling.size}px`
+            color.style = `height: ${filling.size}px`;
             colorsContainer.appendChild(color);
         })
 
-        this.dom.onclick = () => onClickHandler(indexInBottles);
+        if (this.isFilled()) {
+            this.dom.classList.add('filled');
+            return this.dom;
+        }
+
+        this.dom.onclick = () => handleOnClick(indexInBottles);
+        
+        // this.dom.ondrag = (e) => console.log(e, 'ondrag');
+        // this.dom.ondrop = (e) => console.log(e, 'ondrop');
+        // this.dom.ondragstart = (e) => console.log(e, 'ondragstart');
+        // this.dom.ondragend = (e) => console.log(e, 'ondragend');
+        // this.dom.ondragenter = (e) => console.log(e, 'ondragenter');
+        // this.dom.ondragleave = (e) => console.log(e, 'ondragleave');
+        // this.dom.ondragover = (e) => console.log(e, 'ondragover');
 
         return this.dom;
     }

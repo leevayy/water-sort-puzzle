@@ -1,6 +1,6 @@
 .bottles {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px;
     gap: 10px;
 }
 
@@ -13,10 +13,28 @@
 .bottle {
     background-color: blanchedalmond;
     border: 1px solid cadetblue;
+    overflow: hidden;
+    border-radius: 0 0 25px 25px;
 }
 
 .bottle.chosen {
-    border: 1px solid brown;
+    animation: bottle-chosen 2.5s infinite linear;
+}
+
+@keyframes bottle-chosen {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+.bottle.filled {
+    opacity: 0.5;
 }
 
 .colors-container {
